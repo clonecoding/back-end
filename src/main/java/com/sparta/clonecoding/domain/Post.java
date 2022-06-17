@@ -24,4 +24,8 @@ public class Post extends Timestamped{
 
     @Column(nullable = false)
     private String category;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 }
