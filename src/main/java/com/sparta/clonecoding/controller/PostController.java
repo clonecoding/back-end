@@ -10,6 +10,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+
 @RestController
 public class PostController {
 
@@ -29,7 +31,7 @@ public class PostController {
     @PostMapping("/api/post")
     public ResponseDto<Object> createPost(@AuthenticationPrincipal UserDetailsImpl userDetails,
                                           @RequestPart(value = "postDto") PostRequestDto postRequestDto,
-                                          @RequestPart(value = "file") MultipartFile file){
+                                          @RequestPart(value = "file") MultipartFile file) throws IOException {
         return postService.createPost(userDetails,postRequestDto,file);
     }
 
@@ -39,5 +41,11 @@ public class PostController {
                                           @RequestPart(value = "postDto") PostRequestDto postRequestDto,
                                           @RequestPart(value = "file") MultipartFile file){
         return postService.updatePost(postid,userDetails,postRequestDto,file);
+    }
+
+    @DeleteMapping("/api/post/{postid}")
+    public ResponseDto<Object> deletePost(@PathVariable Long postid,
+                                          @AuthenticationPrincipal UserDetailsImpl userDetails){
+        return postService.deletePost(postid, userDetails);
     }
 }
