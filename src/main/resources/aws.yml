@@ -1,10 +1,10 @@
 cloud:
   aws:
     credentials:
-      accessKey: AKIAWTAWMUEVVUCZVEEE
-      secretKey: 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
+      accessKey: AKIAWTAWMUEV4WRQL4VQ
+      secretKey: 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
     s3:
-      bucket: z1x2c3v4
+      bucket: clonecoding5
     region:
       static: ap-northeast-2
     stack:

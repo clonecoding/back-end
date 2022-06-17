@@ -21,7 +21,8 @@ public class Post extends Timestamped{
     @Column(nullable = false)
     private int price;
 
-    @Column(nullable = false)
+
+    @Column(nullable = false,columnDefinition = "TEXT")
     private String image;
 
     @Column(nullable = false)

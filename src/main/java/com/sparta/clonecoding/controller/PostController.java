@@ -29,7 +29,7 @@ public class PostController {
         return postService.getAllPosts();
     }
 
-    @PostMapping(value = "/api/post", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+    @PostMapping("/api/post")
     public ResponseDto<Object> createPost(@AuthenticationPrincipal UserDetailsImpl userDetails,
                                           @RequestPart(value = "postDto") PostRequestDto postRequestDto,
                                           @RequestPart(value = "file") MultipartFile file) throws IOException {
