@@ -1,11 +1,15 @@
 package com.sparta.clonecoding.service;
 
+import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.sparta.clonecoding.domain.Post;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,7 +26,7 @@ public class S3Uploader {
 
     private final AmazonS3Client amazonS3Client;
 
-    @Value("${cloud.aws.s3.bucket}")
+    @Value("${cloud.aws.s3.z1x2c3v4}")
     public String bucket;  // S3 버킷 이름
 
     public String upload(MultipartFile multipartFile, String dirName) throws IOException {
@@ -67,4 +71,7 @@ public class S3Uploader {
 
         return Optional.empty();
     }
+
+
+
 }
