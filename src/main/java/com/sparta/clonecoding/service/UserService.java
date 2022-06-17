@@ -56,7 +56,7 @@ public class UserService {
         String username = requestDto.getUsername();
         String nickname = requestDto.getNickname();
         String password2 = requestDto.getPassword();
-        String passwordCheck = requestDto.getPasswordChceck();
+        String passwordCheck = requestDto.getPasswordCheck();
 
 // 회원가입시 에러메세지들 출력완료
         String Message;
@@ -89,7 +89,7 @@ public class UserService {
                 return new ResponseDto<>(false,"아이디 비밀번호를 확인하여주세요");
             }
         }
-        String token = jwtTokenProvider.createToken(loginRequestDto.getUsername());
-        return new ResponseDto<>(true,"로그인 성공",token);
+        jwtTokenProvider.createToken(loginRequestDto.getUsername());
+        return new ResponseDto<>(true,"로그인 성공");
     }
 }
