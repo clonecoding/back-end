@@ -24,7 +24,7 @@ import java.util.Date;
 @Component
 public class JwtTokenProvider {
 
-    @Value("${jwtSecretKey}")
+    @Value("K7kjHSF345h345S86F3A2erGB98iWIad")
     private String secretKey;
     public static final String AUTH_HEADER = "Authorization";
     public final HttpServletResponse response;

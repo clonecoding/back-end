@@ -1,5 +1,6 @@
 package com.sparta.clonecoding.controller;
 
+import com.sparta.clonecoding.dto.LoginRequestDto;
 import com.sparta.clonecoding.dto.ResponseDto;
 import com.sparta.clonecoding.dto.SignUpRequestDto;
 import com.sparta.clonecoding.repository.UserRepository;
@@ -19,19 +20,19 @@ public class UserController {
 
 
     @PostMapping("/user/signup")
-    public ResponseDto userRegister(@RequestBody SignUpRequestDto signUpRequestDto){
+    public ResponseDto<Object> userRegister(@RequestBody SignUpRequestDto signUpRequestDto){
        return userService.userRegister(signUpRequestDto);
     }
 
     //닉네임 중복확인
     @GetMapping("/user/nickname/{nickname}")
-    public ResponseDto nicknameCheck(@PathVariable String nickname){
+    public ResponseDto<Object> nicknameCheck(@PathVariable String nickname){
         return userService.nicknameCheck(nickname);
 
     }
     //아이디 중복확인
     @GetMapping("/user/username/{username}")
-    public ResponseDto usernameCheck(@PathVariable String username){
+    public ResponseDto<Object> usernameCheck(@PathVariable String username){
         return userService.usernameCheck(username);
     }
 
