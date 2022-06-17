@@ -30,10 +30,11 @@ public class S3Service {
     @Value("${cloud.aws.s3.bucket}")
     public String bucket;  // S3 버킷 이름
 
-    @Value("${cloud.aws.credentials.access-key}")
+    @Value("${cloud.aws.credentials.accessKey}")
     private String accessKey;
 
-    @Value("${cloud.aws.credentials.secret-key}")
+
+    @Value("${cloud.aws.credentials.secretKey}")
     private String secretKey;
 
     @Value("${cloud.aws.region.static}")
@@ -57,22 +58,22 @@ public class S3Service {
         objectMetadata.setContentLength(file.getSize());          // 파일 크기
         objectMetadata.setContentType(file.getContentType());     // 파일 타입
 
-        try(InputStream inputStream = file.getInputStream()) {
-            s3Client.putObject(new PutObjectRequest(bucket,fileName,inputStream,objectMetadata)
+        try (InputStream inputStream = file.getInputStream()) {
+            s3Client.putObject(new PutObjectRequest(bucket, fileName, inputStream, objectMetadata)
                     .withCannedAcl(CannedAccessControlList.PublicRead));
             return new FileRequestDto(s3Client.getUrl(bucket, fileName).toString(), fileName);
-        }catch (IOException e){
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,"파일 업로드에 실패하셨습니다");
+        } catch (IOException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "파일 업로드에 실패하셨습니다");
         }
     }
 
 
     // 글 수정 시 기존 s3에 있는 이미지 정보 삭제
-    public void deleteImageUrl(String filePath){
+    public void deleteImageUrl(String filePath) {
         // 삭제 구문
-        if(!"".equals(filePath) && filePath != null){
+        if (!"".equals(filePath) && filePath != null) {
             boolean isExistObject = s3Client.doesObjectExist(bucket, filePath);
-            if(isExistObject){
+            if (isExistObject) {
                 s3Client.deleteObject(bucket, filePath);
             }
         }
