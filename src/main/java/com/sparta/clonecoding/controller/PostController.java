@@ -5,6 +5,7 @@ import com.sparta.clonecoding.dto.ResponseDto;
 import com.sparta.clonecoding.security.UserDetailsImpl;
 import com.sparta.clonecoding.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +29,7 @@ public class PostController {
         return postService.getAllPosts();
     }
 
-    @PostMapping("/api/post")
+    @PostMapping(value = "/api/post", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseDto<Object> createPost(@AuthenticationPrincipal UserDetailsImpl userDetails,
                                           @RequestPart(value = "postDto") PostRequestDto postRequestDto,
                                           @RequestPart(value = "file") MultipartFile file) throws IOException {
