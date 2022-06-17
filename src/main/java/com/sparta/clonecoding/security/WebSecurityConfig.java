@@ -62,6 +62,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .logoutUrl("/user/logout")
+                .logoutSuccessHandler(logOutSuccessHandler())
                 .deleteCookies("token")
 //                .antMatchers("/kakao/callback").permitAll()
 //                .antMatchers("/**").permitAll()
@@ -85,5 +86,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
+    @Bean
+    public LogOutSuccessHandler logOutSuccessHandler() {
+        return new LogOutSuccessHandler();
+    }
+
 
 }
