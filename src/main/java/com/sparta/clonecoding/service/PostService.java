@@ -64,7 +64,7 @@ public class PostService {
         FileRequestDto fileRequestDto = s3Service.upload(file);
         post.get().update(postRequestDto, fileRequestDto, userDetails.getUser());
         postRepository.save(post.get());
-        return new ResponseDto<>(true,"수정완료");  
+        return new ResponseDto<>(true,"수정완료");
     }
 
 
