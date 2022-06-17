@@ -1,5 +1,6 @@
 package com.sparta.clonecoding.dto;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,7 +10,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class FileRequestDto {
 
-    private String imageUrl;
+    private String image;
     private String fileName;
-
 }
