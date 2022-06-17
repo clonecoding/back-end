@@ -34,4 +34,11 @@ public class UserController {
     public ResponseDto usernameCheck(@PathVariable String username){
         return userService.usernameCheck(username);
     }
+
+
+    @PostMapping("/user/login")
+    public ResponseDto<Object> login(@RequestBody LoginRequestDto loginRequestDto){
+        return userService.loginUser(loginRequestDto);
+
+    }
 }
