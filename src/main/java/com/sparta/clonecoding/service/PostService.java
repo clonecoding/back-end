@@ -2,14 +2,12 @@ package com.sparta.clonecoding.service;
 
 import com.sparta.clonecoding.domain.Post;
 import com.sparta.clonecoding.domain.User;
-import com.sparta.clonecoding.dto.FileRequestDto;
-import com.sparta.clonecoding.dto.PostRequestDto;
-import com.sparta.clonecoding.dto.PostResponseDto;
-import com.sparta.clonecoding.dto.ResponseDto;
+import com.sparta.clonecoding.dto.*;
 import com.sparta.clonecoding.repository.PostRepository;
 import com.sparta.clonecoding.repository.UserRepository;
 import com.sparta.clonecoding.security.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -81,5 +79,16 @@ public class PostService {
         postRepository.deleteById(postid);
         return new ResponseDto<>(true,"삭제완료");
 
+    }
+
+    //상세페이지 조회하기
+
+    public ResponseDto<Object> getOnePost(Long postid) {
+        Optional<Post> post = postRepository.findById(postid);
+        if (!post.isPresent()) {
+            return new ResponseDto<>(false, "게시물이 존재하지않습니다.");
+        }
+        PostDetailResponseDto postDetail = new PostDetailResponseDto(post.get());
+        return new ResponseDto<>(true, "성공", postDetail);
     }
 }

@@ -17,13 +17,12 @@ public class ResponseDto<T> {
 
     private List<T> postList;
 
+    private PostDetailResponseDto post;
 
-    private String token;
-
-    public ResponseDto(boolean response, String message, String token) {
+    public ResponseDto(boolean response, String message, PostDetailResponseDto postResponseDto) {
         this.response = response;
         this.message = message;
-        this.token = token;
+        this.post = postResponseDto;
     }
 
 

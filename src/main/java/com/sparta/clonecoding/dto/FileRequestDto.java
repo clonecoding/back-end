@@ -9,7 +9,6 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class FileRequestDto {
-
     private String image;
     private String fileName;
 }

@@ -4,15 +4,14 @@ import com.sparta.clonecoding.domain.Post;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.security.core.parameters.P;
 
-import javax.persistence.Column;
 import java.time.LocalDateTime;
-import java.util.Optional;
-
 @Getter
 @Setter
 @NoArgsConstructor
-public class PostResponseDto {
+public class PostDetailResponseDto {
+
     private Long id;
 
     private String title;
@@ -25,13 +24,16 @@ public class PostResponseDto {
 
     private LocalDateTime timestamp;
 
-    public PostResponseDto(Post post) {
+    private String comment;
+
+    public PostDetailResponseDto(Post post) {
         this.id = post.getId();
         this.title = post.getTitle();
-        this.price = post.getPrice();
+        this.price =post.getPrice() ;
         this.image = post.getImage();
         this.category = post.getCategory();
+        this.comment = post.getComment();
         this.timestamp = post.getTimestamp();
     }
-
 }
+

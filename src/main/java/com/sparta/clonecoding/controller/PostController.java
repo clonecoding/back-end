@@ -5,9 +5,7 @@ import com.sparta.clonecoding.dto.ResponseDto;
 import com.sparta.clonecoding.security.UserDetailsImpl;
 import com.sparta.clonecoding.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,13 +17,13 @@ public class PostController {
     private final PostService postService;
 
     @Autowired
-    public PostController(PostService postService){
+    public PostController(PostService postService) {
         this.postService = postService;
     }
 
 
     @GetMapping("/api/post")
-    public ResponseDto<Object> getAllPosts(){
+    public ResponseDto<Object> getAllPosts() {
         return postService.getAllPosts();
     }
 
@@ -33,20 +31,25 @@ public class PostController {
     public ResponseDto<Object> createPost(@AuthenticationPrincipal UserDetailsImpl userDetails,
                                           @RequestPart(value = "postDto") PostRequestDto postRequestDto,
                                           @RequestPart(value = "file") MultipartFile file) throws IOException {
-        return postService.createPost(userDetails,postRequestDto,file);
+        return postService.createPost(userDetails, postRequestDto, file);
     }
 
     @PutMapping("/api/post/{postid}")
     public ResponseDto<Object> updatePost(@PathVariable Long postid,
                                           @AuthenticationPrincipal UserDetailsImpl userDetails,
                                           @RequestPart(value = "postDto") PostRequestDto postRequestDto,
-                                          @RequestPart(value = "file") MultipartFile file){
-        return postService.updatePost(postid,userDetails,postRequestDto,file);
+                                          @RequestPart(value = "file") MultipartFile file) {
+        return postService.updatePost(postid, userDetails, postRequestDto, file);
     }
 
     @DeleteMapping("/api/post/{postid}")
     public ResponseDto<Object> deletePost(@PathVariable Long postid,
-                                          @AuthenticationPrincipal UserDetailsImpl userDetails){
+                                          @AuthenticationPrincipal UserDetailsImpl userDetails) {
         return postService.deletePost(postid, userDetails);
+    }
+
+    @GetMapping("/api/post/{postid}")
+    public ResponseDto<Object> getOnePost(@PathVariable Long postid) {
+        return postService.getOnePost(postid);
     }
 }
