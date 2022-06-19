@@ -83,14 +83,14 @@ public class PostService {
 
     }
 
-// 상세페이지 조회하기
-    public ResponseDto<Object> getOnePost(Long postid) {
+    //상세페이지 조회하기
 
+    public ResponseDto<Object> getOnePost(Long postid) {
         Optional<Post> post = postRepository.findById(postid);
-        if (!post.isPresent()){
-            return  new ResponseDto<>(false, "게시물이 존재하지않습니다.");
+        if (!post.isPresent()) {
+            return new ResponseDto<>(false, "게시물이 존재하지않습니다.");
         }
-        PostResponseDto postResponseDto = new PostResponseDto(post.get());
-        return  new ResponseDto<>(true,"성공",postResponseDto);
+        PostDetailResponseDto postDetail = new PostDetailResponseDto(post.get());
+        return new ResponseDto<>(true, "성공", postDetail);
     }
 }

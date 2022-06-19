@@ -13,19 +13,13 @@ import java.util.List;
 public class ResponseDto<T> {
     private boolean response;
     private String message;
-
-
     private List<T> postList;
+    private PostDetailResponseDto post;
 
-    private PostResponseDto postResponseDto;
-
-
-    private String token;
-
-    public ResponseDto(boolean response, String message, String token) {
+    public ResponseDto(boolean response, String message, PostDetailResponseDto postResponseDto) {
         this.response = response;
         this.message = message;
-        this.token = token;
+        this.post = postResponseDto;
     }
 
 
@@ -33,11 +27,7 @@ public class ResponseDto<T> {
         this.response = response;
         this.message = message;
     }
-    public ResponseDto(boolean response, String message,PostResponseDto postResponseDto) {
-        this.response = response;
-        this.message = message;
-        this.postResponseDto = postResponseDto;
-    }
+
 
     public ResponseDto(boolean response, String message, List<T> postList) {
         this.response = response;
