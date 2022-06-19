@@ -17,6 +17,8 @@ public class ResponseDto<T> {
 
     private List<T> postList;
 
+    private PostResponseDto postResponseDto;
+
 
     private String token;
 
@@ -31,7 +33,11 @@ public class ResponseDto<T> {
         this.response = response;
         this.message = message;
     }
-
+    public ResponseDto(boolean response, String message,PostResponseDto postResponseDto) {
+        this.response = response;
+        this.message = message;
+        this.postResponseDto = postResponseDto;
+    }
 
     public ResponseDto(boolean response, String message, List<T> postList) {
         this.response = response;

@@ -59,7 +59,7 @@ public class UserService {
         String passwordCheck = requestDto.getPasswordCheck();
 
 // 회원가입시 에러메세지들 출력완료
-        String Message;
+        String Message = "";
 
         if (password2.length() < 4) {
             Message = "비밀번호 길이가 짧습니다.";

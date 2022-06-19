@@ -49,4 +49,8 @@ public class PostController {
                                           @AuthenticationPrincipal UserDetailsImpl userDetails){
         return postService.deletePost(postid, userDetails);
     }
+    @GetMapping("/api/post/{postid}")
+    public ResponseDto<Object> getOnePost(@PathVariable Long postid){
+        return postService.getOnePost(postid);
+    }
 }

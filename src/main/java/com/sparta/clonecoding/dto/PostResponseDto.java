@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Getter
 @Setter
@@ -32,4 +33,7 @@ public class PostResponseDto {
         this.category = post.getCategory();
         this.timestamp = post.getTimestamp();
     }
+
+
+
 }

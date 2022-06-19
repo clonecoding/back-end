@@ -30,6 +30,9 @@ public class Post extends Timestamped{
     @Column(nullable = false)
     private String category;
 
+    @Column(nullable = false)
+    private  String comment;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -41,6 +44,7 @@ public class Post extends Timestamped{
         this.fileName = fileRequestDto.getFileName();
         this.category = postRequestDto.getCategory();
         this.user = user;
+        this.comment = postRequestDto.getComment();
     }
 
     public void update(PostRequestDto postRequestDto, FileRequestDto fileRequestDto, User user){
@@ -49,6 +53,7 @@ public class Post extends Timestamped{
         this.image = fileRequestDto.getImage();
         this.fileName = fileRequestDto.getFileName();
         this.category = postRequestDto.getCategory();
+        this.comment = postRequestDto.getComment();
         this.user = user;
 
     }
