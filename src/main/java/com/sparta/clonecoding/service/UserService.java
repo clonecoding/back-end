@@ -61,16 +61,28 @@ public class UserService {
 
 // 회원가입시 에러메세지들 출력완료
         String Message;
-
-        if (password2.length() < 4) {
-            Message = "비밀번호 길이가 짧습니다.";
-            return new ResponseDto<>(false, Message);
-        } else if (password2.contains(username)) {
+        if (username == null || password2 == null || passwordCheck == null || nickname == null) {
+            return new ResponseDto<>(false, "모두 입력해 주세요");
+        }
+        if (password2.contains(username)) {
             Message = "비밀번호에 ID를 포함할 수 없습니다.";
             return new ResponseDto<>(false, Message);
-        } else if (!passwordCheck.equals(password2)) {
+        }
+        if (!passwordCheck.equals(password2)) {
             Message = "비밀번호가 일치하지 않습니다.";
             return new ResponseDto<>(false, Message);
+        }
+        if (password2.length() < 4 || password2.length() > 20) {
+            return new ResponseDto<>(false, "비밀번호는 최소 4글자 이상, 20글자 이하로 작성해 주세요.");
+        }
+        if (!password2.matches("^(?=.*\\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{4,20}$")) {
+            return new ResponseDto<>(false, "비밀번호는 영문 + 숫자로 작성해 주세요.");
+        }
+        if (nickname.length() < 4 || nickname.length() > 20 ) {
+            return new ResponseDto<>(false,"닉네임은 최소 4글자 이상, 20글자 이하로 작성해 주세요.");
+        }
+        if (!nickname.matches("^[0-9a-zA-Z]{4,20}$")) {
+            return new ResponseDto<>(false,"닉네임은 영문 + 숫자로 작성해 주세요.");
         }
 
         String password = passwordEncoder.encode(requestDto.getPassword());

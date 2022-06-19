@@ -13,10 +13,7 @@ import java.util.List;
 public class ResponseDto<T> {
     private boolean response;
     private String message;
-
-
     private List<T> postList;
-
     private PostDetailResponseDto post;
 
     public ResponseDto(boolean response, String message, PostDetailResponseDto postResponseDto) {
