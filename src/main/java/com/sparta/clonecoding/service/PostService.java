@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.naming.directory.SearchResult;
 import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -42,8 +43,23 @@ public class PostService {
     public ResponseDto<Object> getAllPosts(UserDetailsImpl userDetails) {
         List<PostResponseDto> list = new ArrayList<>();
         User user = userDetails.getUser();
+        LocalDateTime now = LocalDateTime.now();
         for (Post post : postRepository.findAllByOrderByTimestampDesc()) {
-            PostResponseDto postResponseDto = new PostResponseDto(post);
+            String timestamp = "";
+            if(now.getYear() != post.getTimestamp().getYear()){
+                timestamp = timestamp + (now.getYear()-post.getTimestamp().getYear()) + "년전";
+            }else if(now.getMonthValue() != post.getTimestamp().getMonthValue()){
+                timestamp = timestamp + (now.getMonthValue()-post.getTimestamp().getMonthValue()) + "달전";
+            }else if(now.getDayOfMonth() != post.getTimestamp().getDayOfMonth()){
+                timestamp = timestamp + (now.getDayOfMonth()-post.getTimestamp().getDayOfMonth()) + "일전";
+            }else if(now.getHour() != post.getTimestamp().getHour()){
+                timestamp = timestamp + (now.getHour()-post.getTimestamp().getHour()) + "시간전";
+            }else if(now.getMinute() != post.getTimestamp().getMinute()) {
+                timestamp = timestamp + (now.getMinute() - post.getTimestamp().getMinute()) + "분전";
+            }else {
+                timestamp = "방금전";
+            }
+            PostResponseDto postResponseDto = new PostResponseDto(post, timestamp);
             if(postLikeRepository.existsByUserAndPost(user,post)){
                 postResponseDto.setLikeCheck(true);
             }
@@ -101,7 +117,23 @@ public class PostService {
         if (!post.isPresent()) {
             return new ResponseDto<>(false, "게시물이 존재하지않습니다.");
         }
-        PostDetailResponseDto postDetail = new PostDetailResponseDto(post.get());
+        LocalDateTime now = LocalDateTime.now();
+        String timestamp = "";
+        if(now.getYear() != post.get().getTimestamp().getYear()){
+            timestamp = timestamp + (now.getYear()-post.get().getTimestamp().getYear()) + "년전";
+        }else if(now.getMonthValue() != post.get().getTimestamp().getMonthValue()){
+            timestamp = timestamp + (now.getMonthValue()-post.get().getTimestamp().getMonthValue()) + "달전";
+        }else if(now.getDayOfMonth() != post.get().getTimestamp().getDayOfMonth()){
+            timestamp = timestamp + (now.getDayOfMonth()-post.get().getTimestamp().getDayOfMonth()) + "일전";
+        }else if(now.getHour() != post.get().getTimestamp().getHour()){
+            timestamp = timestamp + (now.getHour()-post.get().getTimestamp().getHour()) + "시간전";
+        }else if(now.getMinute() != post.get().getTimestamp().getMinute()) {
+            timestamp = timestamp + (now.getMinute() - post.get().getTimestamp().getMinute()) + "분전";
+        }else {
+            timestamp = "방금전";
+        }
+
+        PostDetailResponseDto postDetail = new PostDetailResponseDto(post.get(), timestamp);
         if(postLikeRepository.existsByUserAndPost(userDetails.getUser(), post.get())){
             postDetail.setLikeCheck(true);
         }

@@ -23,19 +23,19 @@ public class PostResponseDto {
 
     private String category;
 
-    private LocalDateTime timestamp;
+    private String timestamp;
 
     private int postLikes;
 
     private  boolean likeCheck;
 
-    public PostResponseDto(Post post){
+    public PostResponseDto(Post post, String timestamp){
         this.id = post.getId();
         this.title = post.getTitle();
         this.price = post.getPrice();
         this.image = post.getImage();
         this.category = post.getCategory();
-        this.timestamp = post.getTimestamp();
+        this.timestamp = timestamp;
         this.postLikes = post.getPostLikes();
     }
 }

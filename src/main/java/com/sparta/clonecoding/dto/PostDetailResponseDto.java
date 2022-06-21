@@ -22,7 +22,7 @@ public class PostDetailResponseDto {
 
     private String category;
 
-    private LocalDateTime timestamp;
+    private String timestamp;
 
     private String comment;
 
@@ -30,14 +30,14 @@ public class PostDetailResponseDto {
 
     private  boolean likeCheck;
 
-    public PostDetailResponseDto(Post post) {
+    public PostDetailResponseDto(Post post, String timestamp) {
         this.id = post.getId();
         this.title = post.getTitle();
         this.price =post.getPrice() ;
         this.image = post.getImage();
         this.category = post.getCategory();
         this.comment = post.getComment();
-        this.timestamp = post.getTimestamp();
+        this.timestamp = timestamp;
     }
 }
 
