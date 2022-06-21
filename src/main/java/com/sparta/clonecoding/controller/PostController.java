@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.security.Principal;
 
 @RestController
 public class PostController {
@@ -30,8 +31,8 @@ public class PostController {
 
 
     @GetMapping("/api/post")
-    public ResponseDto<Object> getAllPosts() {
-        return postService.getAllPosts();
+    public ResponseDto<Object> getAllPosts(@AuthenticationPrincipal UserDetailsImpl userDetails) {
+        return postService.getAllPosts(userDetails);
     }
 
     @PostMapping(value = "/api/post", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
@@ -57,8 +58,9 @@ public class PostController {
     }
 
     @GetMapping("/api/post/{postid}")
-    public ResponseDto<Object> getOnePost(@PathVariable Long postid) {
-        return postService.getOnePost(postid);
+    public ResponseDto<Object> getOnePost(@PathVariable Long postid,
+                                          @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        return postService.getOnePost(postid, userDetails);
     }
 
     @PostMapping("/api/post/{postid}")

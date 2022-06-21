@@ -36,5 +36,6 @@ public class PostResponseDto {
         this.image = post.getImage();
         this.category = post.getCategory();
         this.timestamp = post.getTimestamp();
+        this.postLikes = post.getPostLikes();
     }
 }

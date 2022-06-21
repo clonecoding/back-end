@@ -94,13 +94,14 @@ public class UserService {
     public ResponseDto<Object> loginUser(LoginRequestDto loginRequestDto) {
         User user = userRepository.findByUsername(loginRequestDto.getUsername())
                 .orElse(null);
-        if (user != null) {
-            if (!passwordEncoder.matches(loginRequestDto.getPassword(), user.getPassword())) {
-                return new ResponseDto<>(false,"아이디 비밀번호를 확인하여주세요");
-            }
+        if (user == null) {
+            return new ResponseDto<>(false, "존재하지않는 아이디입니다.");
+        }
+        if (!passwordEncoder.matches(loginRequestDto.getPassword(), user.getPassword())) {
+            return new ResponseDto<>(false,"아이디 비밀번호를 확인하여주세요");
         }
         jwtTokenProvider.createToken(loginRequestDto.getUsername());
-        return new ResponseDto<>(true,"로그인 성공");
+        return new ResponseDto<>(true,"로그인 성공", user.getNickname());
     }
 
 }

@@ -36,15 +36,15 @@ public class Post extends Timestamped{
     @Column(nullable = false)
     private String comment;
 
-    @JsonIgnoreProperties({"post"})
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
-    private List<PostLike> likeList;
-
     @Column
-    private  Boolean likeCheck;
+    private  Boolean likeCheck=false;
 
     @Column
     private int postLikes;
+
+    @JsonIgnoreProperties({"post"})
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
+    private List<PostLike> likeList;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
