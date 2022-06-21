@@ -37,13 +37,13 @@ public class Post extends Timestamped{
     private String comment;
 
     @Column
-    private  Boolean likeCheck=false;
+    private Boolean likeCheck=false;
 
     @Column
     private int postLikes;
 
     @JsonIgnoreProperties({"post"})
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "post")
     private List<PostLike> likeList;
 
     @ManyToOne
