@@ -1,14 +1,18 @@
 package com.sparta.clonecoding.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sparta.clonecoding.dto.FileRequestDto;
 import com.sparta.clonecoding.dto.PostRequestDto;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
+@Setter
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 public class Post extends Timestamped{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,6 +33,18 @@ public class Post extends Timestamped{
 
     @Column(nullable = false)
     private String category;
+    @Column(nullable = false)
+    private String comment;
+
+    @JsonIgnoreProperties({"post"})
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
+    private List<PostLike> likeList;
+
+    @Column
+    private  Boolean likeCheck;
+
+    @Column
+    private int postLikes;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

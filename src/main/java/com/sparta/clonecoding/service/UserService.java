@@ -58,7 +58,6 @@ public class UserService {
         String nickname = requestDto.getNickname();
         String password2 = requestDto.getPassword();
         String passwordCheck = requestDto.getPasswordCheck();
-
 // 회원가입시 에러메세지들 출력완료
         String Message;
         if (username == null || password2 == null || passwordCheck == null || nickname == null) {

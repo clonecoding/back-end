@@ -2,10 +2,7 @@ package com.sparta.clonecoding.service;
 
 import com.sparta.clonecoding.domain.Post;
 import com.sparta.clonecoding.domain.User;
-import com.sparta.clonecoding.dto.FileRequestDto;
-import com.sparta.clonecoding.dto.PostRequestDto;
-import com.sparta.clonecoding.dto.PostResponseDto;
-import com.sparta.clonecoding.dto.ResponseDto;
+import com.sparta.clonecoding.dto.*;
 import com.sparta.clonecoding.repository.PostRepository;
 import com.sparta.clonecoding.repository.UserRepository;
 import com.sparta.clonecoding.security.UserDetailsImpl;

@@ -25,6 +25,10 @@ public class PostResponseDto {
 
     private LocalDateTime timestamp;
 
+    private int postLikes;
+
+    private  boolean likeCheck;
+
     public PostResponseDto(Post post){
         this.id = post.getId();
         this.title = post.getTitle();

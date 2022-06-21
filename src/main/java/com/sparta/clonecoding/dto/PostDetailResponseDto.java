@@ -26,6 +26,10 @@ public class PostDetailResponseDto {
 
     private String comment;
 
+    private int postLikes;
+
+    private  boolean likeCheck;
+
     public PostDetailResponseDto(Post post) {
         this.id = post.getId();
         this.title = post.getTitle();
