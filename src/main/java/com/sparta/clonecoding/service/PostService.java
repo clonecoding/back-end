@@ -7,7 +7,6 @@ import com.sparta.clonecoding.repository.PostRepository;
 import com.sparta.clonecoding.repository.UserRepository;
 import com.sparta.clonecoding.security.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;

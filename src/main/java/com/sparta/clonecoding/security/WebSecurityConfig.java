@@ -41,6 +41,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         web
                 .ignoring()
                 .antMatchers("/h2-console/**")
+                .antMatchers("/ws/chat")
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations());
     }
 
@@ -49,8 +50,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().configurationSource(corsConfigurationSource());
         // 토큰 인증이므로 세션 사용x
         http.csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.headers().frameOptions().disable();
-        http.authorizeRequests();
+        http.headers().frameOptions().sameOrigin();
+        http.authorizeRequests().antMatchers("/chat/**");
         // 회원 관리 처리 API (POST /user/**) 에 대해 CSRF 무시
 
         http.authorizeRequests()
@@ -74,6 +75,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.addAllowedOrigin("http://localhost:3000");
+        configuration.addAllowedOrigin("/ws/chat");
         configuration.addAllowedOrigin("http://jeju.project.s3-website.ap-northeast-2.amazonaws.com/");
         configuration.addAllowedOrigin("http://jeju.project.s3-website.ap-northeast-2.amazonaws.com:3000/");
         configuration.addAllowedMethod("*");
