@@ -30,6 +30,8 @@ public class PostDetailResponseDto {
 
     private  boolean likeCheck;
 
+    private String nickname;
+
     public PostDetailResponseDto(Post post, String timestamp) {
         this.id = post.getId();
         this.title = post.getTitle();
@@ -38,6 +40,7 @@ public class PostDetailResponseDto {
         this.category = post.getCategory();
         this.comment = post.getComment();
         this.timestamp = timestamp;
+        this.nickname = post.getUser().getNickname();
     }
 }
 
