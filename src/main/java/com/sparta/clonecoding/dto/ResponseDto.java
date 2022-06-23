@@ -17,11 +17,14 @@ public class ResponseDto<T> {
     private PostDetailResponseDto post;
     private String nickname;
 
+
+
     public ResponseDto(boolean response, String message, String nickname) {
         this.response = response;
         this.message = message;
         this.nickname = nickname;
     }
+
     public ResponseDto(boolean response, String message, PostDetailResponseDto postResponseDto) {
         this.response = response;
         this.message = message;
