@@ -41,6 +41,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         web
                 .ignoring()
                 .antMatchers("/h2-console/**")
+                .antMatchers("/ws-stomp")
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations());
     }
 
@@ -49,8 +50,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().configurationSource(corsConfigurationSource());
         // 토큰 인증이므로 세션 사용x
         http.csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.headers().frameOptions().disable();
-        http.authorizeRequests();
+        http.headers().frameOptions().sameOrigin();
+//        http.authorizeRequests().antMatchers("/ws-stomp");
+//        http.authorizeRequests().antMatchers("/pub/**");
+//        http.authorizeRequests().antMatchers("/sub/**");
         // 회원 관리 처리 API (POST /user/**) 에 대해 CSRF 무시
 
         http.authorizeRequests()
@@ -58,12 +61,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // 회원 관리 처리 API 전부를 login 없이 허용
                 .antMatchers("/user/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/post/**").permitAll()
-                .anyRequest().authenticated()
+                .antMatchers("/ws-stomp").permitAll()
+                .antMatchers("/**").permitAll()
+                .anyRequest().permitAll()
+//                .anyRequest().authenticated()
                 .and()
                 .logout()
                 .logoutUrl("/user/logout")
                 .logoutSuccessHandler(logOutSuccessHandler())
-                .deleteCookies("token")
+//                .deleteCookies("token")
 //                .antMatchers("/kakao/callback").permitAll()
 //                .antMatchers("/**").permitAll()
                 // 그 외 어떤 요청이든 '인증'
@@ -74,11 +80,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.addAllowedOrigin("http://localhost:3000");
+        configuration.addAllowedOrigin("/ws-stomp");
+        configuration.addAllowedOrigin("http://jeju.project.s3-website.ap-northeast-2.amazonaws.com/");
+        configuration.addAllowedOrigin("http://jeju.project.s3-website.ap-northeast-2.amazonaws.com:3000/");
         configuration.addAllowedMethod("*");
         configuration.addAllowedHeader("*");
-        configuration.addExposedHeader("*");
+        configuration.addExposedHeader("Authorization");
         configuration.setAllowCredentials(true);
-        configuration.validateAllowCredentials();
+//        configuration.validateAllowCredentials();
         configuration.setMaxAge(3600L);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
@@ -88,6 +97,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public LogOutSuccessHandler logOutSuccessHandler() {
         return new LogOutSuccessHandler();
     }
-
-
 }
